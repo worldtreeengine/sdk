@@ -29,9 +29,9 @@ jobs:
     - env:
         Version: ${{ github.ref_name }}
       run: |
-        7z a -tzip worldtree-sdk-${Version}-windows-x64.zip cli\target\release\worldtree.exe
-        7z a -tzip worldtree-sdk-${Version}-windows-x64.zip cli\target\release\THIRD-PARTY
-        7z a -tzip worldtree-sdk-${Version}-windows-x64.zip LICENSE
+        7z a -tzip worldtree-sdk-${Env:Version}-windows-x64.zip cli\target\release\worldtree.exe
+        7z a -tzip worldtree-sdk-${Env:Version}-windows-x64.zip cli\target\release\THIRD-PARTY
+        7z a -tzip worldtree-sdk-${Env:Version}-windows-x64.zip LICENSE
     - uses: actions/upload-artifact@v4
       with:
         name: windows-x64
