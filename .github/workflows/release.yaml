@@ -23,10 +23,8 @@ jobs:
         pnpm run build
     - working-directory: cli
       run: |
-        cargo test
-    - working-directory: cli
-      run: |
         cargo build --release
+        cargo install cargo-about
         cargo about generate -o target\release\THIRD-PARTY about.hbs
     - env:
         Version: ${{ github.ref_name }}
@@ -54,10 +52,8 @@ jobs:
         pnpm run build
     - working-directory: cli
       run: |
-        cargo test
-    - working-directory: cli
-      run: |
         cargo build --release
+        cargo install cargo-about
         cargo about generate -o target/release/THIRD-PARTY about.hbs
     - env:
         Version: ${{ github.ref_name }}
@@ -85,10 +81,8 @@ jobs:
         pnpm run build
     - working-directory: cli
       run: |
-        cargo test
-    - working-directory: cli
-      run: |
         cargo build --release
+        cargo install cargo-about
         cargo about generate -o target/release/THIRD-PARTY about.hbs
     - env:
         Version: ${{ github.ref_name }}
@@ -116,10 +110,8 @@ jobs:
         pnpm run build
     - working-directory: cli
       run: |
-        cargo test
-    - working-directory: cli
-      run: |
         cargo build --release
+        cargo install cargo-about
         cargo about generate -o target/release/THIRD-PARTY about.hbs
     - env:
         Version: ${{ github.ref_name }}
