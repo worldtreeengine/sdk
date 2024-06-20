@@ -30,7 +30,7 @@ jobs:
         7z a -tzip worldtree-sdk-${Version}-windows-x64.zip cli\target\release\worldtree.exe
         7z a -tzip worldtree-sdk-${Version}-windows-x64.zip cli\target\release\THIRD-PARTY
         7z a -tzip worldtree-sdk-${Version}-windows-x64.zip LICENSE
-    - uses: actions/upload-artifact
+    - uses: actions/upload-artifact@v4
       with:
         name: windows-x64
         path: worldtree-sdk-${{ github.ref_name }}-windows-x64.zip
@@ -57,7 +57,7 @@ jobs:
         7z a -tzip worldtree-sdk-${Version}-macos-x64.zip cli/target/release/worldtree
         7z a -tzip worldtree-sdk-${Version}-macos-x64.zip cli/target/release/THIRD-PARTY
         7z a -tzip worldtree-sdk-${Version}-macos-x64.zip LICENSE
-    - uses: actions/upload-artifact
+    - uses: actions/upload-artifact@v4
       with:
         name: windows-x64
         path: worldtree-sdk-${{ github.ref_name }}-macos-x64.zip
@@ -84,7 +84,7 @@ jobs:
         7z a -tzip worldtree-sdk-${Version}-macos-arm64.zip cli/target/release/worldtree
         7z a -tzip worldtree-sdk-${Version}-macos-arm64.zip cli/target/release/THIRD-PARTY
         7z a -tzip worldtree-sdk-${Version}-macos-arm64.zip LICENSE
-    - uses: actions/upload-artifact
+    - uses: actions/upload-artifact@v4
       with:
         name: windows-x64
         path: worldtree-sdk-${{ github.ref_name }}-macos-arm64.zip
@@ -112,7 +112,7 @@ jobs:
           cli/target/release/worldtree \
           cli/target/release/THIRD-PARTY \
           LICENSE
-    - uses: actions/upload-artifact
+    - uses: actions/upload-artifact@v4
       with:
         name: windows-x64
         path: worldtree-sdk-${{ github.ref_name }}-linux-x64.zip
