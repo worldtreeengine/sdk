@@ -12,6 +12,7 @@ jobs:
     runs-on: windows-2022
     steps:
     - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
     - working-directory: engine
       run: |
         pnpm install
@@ -40,6 +41,7 @@ jobs:
     runs-on: macos-13
     steps:
     - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
     - working-directory: engine
       run: |
         pnpm install
@@ -68,6 +70,7 @@ jobs:
     runs-on: macos-14
     steps:
     - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
     - working-directory: engine
       run: |
         pnpm install
@@ -96,6 +99,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
     - working-directory: engine
       run: |
         pnpm install
