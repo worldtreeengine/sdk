@@ -1,0 +1,24 @@
+{
+    "name": "@worldtreeengine/standalone.browser",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@worldtreeengine/content.model": "workspace:^",
+        "@worldtreeengine/runtime.api": "workspace:^",
+        "@worldtreeengine/runtime.drivers.local-driver": "workspace:^",
+        "@worldtreeengine/state.api": "workspace:^",
+        "@worldtreeengine/state.drivers.local-storage-driver": "workspace:^",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.60",
+        "@types/react-dom": "^18.2.22",
+        "esbuild": "^0.20.2",
+        "typescript": "^5.4.2"
+    },
+    "scripts": {
+        "build": "esbuild src/index.tsx --bundle --minify --outfile=dist/bundle.js",
+        "build-dev": "esbuild src/index.tsx --bundle --outfile=dist/bundle.js"
+    }
+}

@@ -1,0 +1,18 @@
+@layer engine {
+    .icon {
+        display: block;
+        width: 3em;
+        height: 3em;
+    }
+
+    .img-icon {
+        object-fit: fill;
+    }
+
+    .mask-icon {
+        --mask-icon-color: var(--foreground-color);
+        mask-image: var(--mask-icon-url);
+        mask-mode: luminance;
+        background-color: var(--mask-icon-color);
+    }
+}

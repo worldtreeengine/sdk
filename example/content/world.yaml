@@ -1,0 +1,22 @@
+---
+version: 0.1
+meta:
+  title: Making Wishes
+  description: An example game for the [Worldtree Engine](https://github.com/worldtreeengine).
+  credits:
+    - by Doug Valenta
+  lang: en-us
+storylets:
+  - name: initialize
+    assign:
+      - set: coins on the floor
+        to: 10
+    go: red-room
+qualities:
+  - name: coins
+    singularLabel: silver coin
+    pluralLabel: silver coins
+    style:
+      - personal
+      - currency
+

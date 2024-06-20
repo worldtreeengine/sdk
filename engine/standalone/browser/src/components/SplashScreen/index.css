@@ -1,0 +1,129 @@
+@layer engine {
+    .splash {
+        background-color: var(--background-color);
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        opacity: 1;
+        transition: opacity 1s 0.5s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &[aria-hidden=true] {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s 0s;
+        }
+    }
+
+    .splash-content {
+        background-color: var(--background-color);
+        border-radius: 2em;
+        width: 100%;
+        max-width: 30em;
+        padding: 4em 2em;
+        box-sizing: border-box;
+
+        & h1 {
+            font-weight: normal;
+            text-align: center;
+            max-width: 6.67em;
+            text-wrap: balance;
+            line-height: 1;
+            font-size: 5em;
+            margin: 0 auto;
+            color: var(--important-foreground-color);
+        }
+    }
+
+    .splash-credits {
+        max-height: 20em;
+        overflow-y: auto;
+        margin-block-start: 1em;
+        text-align: center;
+        line-height: 1.5;
+        font-family: var(--label-font-family);
+
+        & p {
+            font-size: 1.25em;
+        }
+
+        & a {
+            color: inherit;
+        }
+    }
+
+    .splash-navigation {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1em;
+        margin-block-start: 1em;
+    }
+
+    .splash-navigation-button {
+        font-size: 1.5em;
+        font-family: var(--label-font-family);
+        font-weight: bold;
+        border: 2px solid var(--foreground-color);
+        border-radius: 4px;
+        padding: 0.5em 1em;
+        cursor: pointer;
+        background-color: var(--background-color);
+        color: var(--foreground-color);
+
+        transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+
+        &:hover, &:focus-visible {
+            background-color: var(--foreground-color);
+            color: var(--background-color);
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &::-moz-focus-inner {
+            border: 0;
+        }
+    }
+
+    .splash-navigation-button:first-child {
+        color: var(--important-foreground-color);
+        border-color: var(--important-foreground-color);
+
+        &:hover, &:focus-visible {
+            background-color: var(--important-foreground-color);
+            border-color: var(--important-foreground-color);
+            color: var(--background-color);
+        }
+    }
+
+    .splash-version {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 0;
+        font-size: 0.875em;
+        font-family: var(--label-font-family);
+
+        & a {
+            display: block;
+            text-decoration: none;
+            color: var(--foreground-color);
+            opacity: 0.5;
+            cursor: pointer;
+            transition: color 0.2s, opacity 0.2s;
+            padding: 1em 1.5em;
+
+            &:hover, &:focus-visible {
+                opacity: 1;
+                color: var(--important-foreground-color);
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+background_color = "#002244"
+foreground_color = "#00ffcc"
+important_foreground_color = "#ffffee"
+state_key = "worldtreeengine/example/making-wishes"
+body_font_family = "google-fonts:Alegreya"
+label_font_family = "google-fonts:Alegreya Sans"
+# stylesheet = "style.css"

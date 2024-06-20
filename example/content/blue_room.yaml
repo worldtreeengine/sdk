@@ -1,0 +1,58 @@
+---
+qualities:
+  - name: wishes
+    singularLabel: wish
+    style:
+      - personal
+      - currency
+
+locations:
+  - name: blue-room
+    label: The Blue Room
+    body: |
+      This room is a deep, calming shade of blue.
+      In the center of the room is a circular pool brimming with water.
+
+      { wishes > 1 }
+        A few silvery coins sparkle beneath the surface.
+      { else wishes }
+        A solitary coin glistens in the pool.
+      {end}
+    storylets:
+      - name: go-to-red-room
+        repeatable: true
+        label: Return to the Red Room
+        icon: game-icons:delapouite/walk#red
+        go: red-room
+      - when: coins
+        name: make-a-wish
+        repeatable: true
+        label: Toss a coin into the pool
+        description: Who knows, it could be lucky.
+        icon: game-icons:caro-asercion/coinflip
+        choose:
+          prompt: |
+            You palm {coins > 1}one of your{else when wishes}the last of your{else}your only{end}
+            silver coins and weight it in your hand.
+          choices:
+            - label: Throw the coin as far as you can
+              description: They say it's lucky.
+              icon: game-icons:caro-asercion/coinflip
+              body: The coin splashes down on the far end of the pool.
+              assign:
+                assignments:
+                  - increment: wishes
+                  - decrement: coins
+                description: Did you make a wish?
+            - label: Toss it gently
+              description: You don't want to frighten it.
+              icon: game-icons:caro-asercion/coinflip
+              body: The coin makes a small splash and a *plink* as it hits the bottom of the shallow pool.
+              assign:
+                assignments:
+                  - increment: wishes
+                  - decrement: coins
+                description: Did you make a wish?
+            - label: Never mind
+              description: Thinking better of it, you slip it back into your purse.
+              icon: game-icons:delapouite/receive-money

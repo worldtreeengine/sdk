@@ -1,0 +1,54 @@
+@layer engine {
+    .system-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        width: max-content;
+        height: max-content;
+
+        & ul {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5em;
+            padding: 1em;
+            list-style-type: none;
+            margin: 0;
+        }
+    }
+
+    .system-menu-button {
+        border: 2px solid transparent;
+        border-radius: 3px;
+        background-color: var(--background-color);
+        fill: var(--foreground-color);
+        font-size: 1em;
+        cursor: pointer;
+        padding: 0;
+
+        width: 3em;
+        height: 2.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: border-color 0.2s, background-color 0.2s;
+
+        &:hover {
+            background-color: color-mix(in srgb, var(--foreground-color) 5%, var(--background-color));
+        }
+
+        &:focus-visible {
+            border-color: var(--foreground-color);
+        }
+
+        &:focus {
+            outline: 0;
+        }
+
+        &::-moz-focus-inner {
+            border: 0;
+        }
+    }
+}

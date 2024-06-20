@@ -1,0 +1,10 @@
+{
+    "name": "@worldtreeengine/runtime.drivers.local-driver",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@worldtreeengine/content.model": "workspace:^",
+        "@worldtreeengine/runtime.api": "workspace:^",
+        "@worldtreeengine/state.api": "workspace:^"
+    }
+}

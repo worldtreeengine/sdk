@@ -1,0 +1,182 @@
+@layer engine {
+    .game {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        overflow-y: auto;
+        top: 0;
+        left: 0;
+
+        background-color: var(--background-color);
+
+        transition: opacity 1s 0.5s;
+
+        &[aria-hidden=true] {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s 0s;
+        }
+    }
+
+    .game-content {
+        width: 100%;
+        max-width: 48em;
+        margin-inline: auto;
+        padding: 4em 1em;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        height: 100vh;
+    }
+
+    @keyframes game-content-appear {
+        0% {
+            opacity: 0;
+            transform: translateY(2em);
+        }
+    }
+
+    .body {
+        width: 100%;
+        padding: 2em;
+        box-sizing: border-box;
+
+        animation: game-content-appear 1s;
+
+        & p {
+            line-height: 1.5;
+            font-size: 1.25em;
+        }
+
+        & a {
+            color: inherit;
+
+            &:hover {
+                color: var(--highlight-foreground-color);
+            }
+        }
+    }
+
+    .assignments {
+        border-block-start: 1px solid var(--foreground-color);
+        border-block-end: 1px solid var(--foreground-color);
+        margin-block: 2em;
+
+        animation: game-content-appear 1s;
+    }
+
+    .choices {
+        margin-block-start: auto;
+        overflow: hidden;
+
+        & ul {
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            list-style-type: none;
+
+            & li {
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 1em 1.5em;
+                display: flex;
+                flex-direction: row;
+                align-items: start;
+                justify-content: start;
+                gap: 1.5em;
+                background-color: var(--background-color);
+                transition: background-color 0.2s, color 0.2s;
+                user-select: none;
+                animation: game-content-appear 1s;
+                animation-fill-mode: backwards;
+                animation-delay: 4s;
+
+                &:nth-child(1) { animation-delay: 0.5s; }
+                &:nth-child(2) { animation-delay: 1s; }
+                &:nth-child(3) { animation-delay: 1.5s; }
+                &:nth-child(4) { animation-delay: 2s; }
+                &:nth-child(5) { animation-delay: 2.5s; }
+                &:nth-child(6) { animation-delay: 3s; }
+                &:nth-child(7) { animation-delay: 3.5s; }
+
+                &:hover, &:focus-visible {
+                    color: var(--highlight-foreground-color);
+                    background-color: var(--highlight-background-color);
+                }
+
+                & p {
+                    margin-block-start: 0.5em;
+                    margin-block-end: 0;
+                }
+            }
+        }
+    }
+
+    @keyframes choice-appear {
+        0% {
+            transform: translateY(1em);
+            opacity: 0;
+        }
+    }
+
+    .choices-prompt {
+        font-size: 1em;
+        font-weight: normal;
+        text-align: center;
+        line-height: 1.5;
+        text-wrap: balance;
+        max-width: 20em;
+        margin-inline: auto;
+
+        animation: game-content-appear 1s;
+    }
+
+    .choice-icon-frame {
+        --foreground-color: var(--important-foreground-color);
+    }
+
+    .choice-icon {
+        display: block;
+        width: 3em;
+        height: 3em;
+    }
+
+    .choice-icon.mask-icon {
+        background-color: var(--important-foreground-color);
+        mask-image: var(--mask-icon-url);
+    }
+
+    .choice-content {
+        flex-grow: 1;
+
+        & p {
+            line-height: 1.5em;
+            padding: 0;
+            text-indent: 1em;
+        }
+
+        & p:first-child {
+            text-indent: 0;
+        }
+    }
+
+    .choice-label {
+        font-family: var(--label-font-family);
+        font-weight: bold;
+        color: var(--important-foreground-color);
+    }
+
+    .location-title {
+        height: 2em;
+
+        animation: game-content-appear 1s;
+
+        & h2 {
+            font-size: 1.25em;
+            text-align: center;
+            font-family: var(--label-font-family);
+            margin: 0 0 1em;
+        }
+    }
+}

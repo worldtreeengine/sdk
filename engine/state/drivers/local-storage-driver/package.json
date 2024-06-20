@@ -1,0 +1,8 @@
+{
+    "name": "@worldtreeengine/state.drivers.local-storage-driver",
+    "private": true,
+    "version": "0.1.0",
+    "dependencies": {
+        "@worldtreeengine/state.drivers.in-memory-driver": "workspace:^"
+    }
+}

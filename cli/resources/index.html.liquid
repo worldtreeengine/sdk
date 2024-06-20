@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="{{ meta.lang }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{{ meta.title | escape }}</title>
+        <meta name="description" content="{{ meta.description | escape }}">
+        <meta name="generator" content="{{ meta.generator | escape }}">
+
+        <script type="application/json" id="model">{{ content }}</script>
+        <script
+            type="text/javascript"
+            {% if config.stateKey.size > 0 %}data-state-key="{{ config.stateKey | escape }}"{% endif %}
+            {% if config.backgroundColor.size > 0 %}data-background-color="{{ config.backgroundColor | escape }}"{% endif %}
+            {% if config.foregroundColor.size > 0 %}data-foreground-color="{{ config.foregroundColor | escape }}"{% endif %}
+            {% if config.importantForegroundColor.size > 0 %}data-important-foreground-color="{{ config.importantForegroundColor | escape }}"{% endif %}
+            {% if config.highlightBackgroundColor.size > 0 %}data-highlight-background-color="{{ config.highlightBackgroundColor | escape }}"{% endif %}
+            {% if config.highlightForegroundColor.size > 0 %}data-highlight-foreground-color="{{ config.highlightForegroundColor | escape }}"{% endif %}
+            {% if config.bodyFontFamily.size > 0 %}data-body-font-family="{{ config.bodyFontFamily | escape }}"{% endif %}
+            {% if config.labelFontFamily.size > 0 %}data-label-font-family="{{ config.labelFontFamily | escape }}"{% endif %}
+        >{{ bundle.script }}</script>
+        {% unless config.omitBundledStylesheet %}<style>{{ bundle.stylesheet }}</style>{% endunless %}
+        {% if config.userStylesheet.size > 0 %}<style>{{ config.userStylesheet }}</style>{% endif %}
+
+        {% if config.googleFontsParams.size > 0%}
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?{{ config.googleFontsParams }}&display=swap" rel="stylesheet">
+        {% endif %}
+    </head>
+    <body>
+    </body>
+</html>

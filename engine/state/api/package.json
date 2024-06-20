@@ -1,0 +1,9 @@
+{
+    "name": "@worldtreeengine/state.api",
+    "private": true,
+    "version": "0.1.0",
+    "main": "src",
+    "dependencies": {
+        "@worldtreeengine/content.model": "workspace:^"
+    }
+}

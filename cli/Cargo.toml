@@ -1,0 +1,27 @@
+[package]
+name = "worldtree-cli"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "worldtree"
+path = "src/main.rs"
+
+[dependencies]
+worldtree-compiler = { path = "../compiler" }
+anyhow = "1.0.80"
+clap = { version = "4.5.1", features = ["derive", "cargo"] }
+liquid = "0.26.4"
+regex = "1.10.3"
+semver = "1.0.22"
+serde = "1.0.197"
+serde_derive = "1.0.197"
+serde_json = "1.0.114"
+toml = "0.8.11"
+lazy_static = "1.4.0"
+url = "2.5.0"
+reqwest = {  version = "0.12.4", features = ["blocking"] }
+
+[build-dependencies]
+which = "6.0.0"

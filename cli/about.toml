@@ -1,0 +1,14 @@
+accepted = [
+    "Apache-2.0",
+    "MIT",
+    "Unicode-DFS-2016",
+]
+
+targets = [
+    "x86_64-pc-windows-msvc",
+]
+
+ignore-build-dependencies = true
+ignore-dev-dependencies = true
+
+private.ignore = true

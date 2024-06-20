@@ -1,0 +1,52 @@
+---
+qualities:
+  - name: coins on the floor
+    singularLabel: coin on the floor
+    style:
+      - currency
+
+locations:
+  - name: red-room
+    label: The Red Room
+    body: |
+      This room is so red you could cringe.
+      
+      { coins on the floor > 4 }
+        There is a pile of silver coins in the middle of the floor.
+      { else coins on the floor > 1 }
+        Only a few silver coins remain in the middle of the floor.
+      { else coins on the floor }
+        Where once coins were piled high, only a solitary coin sits in the middle of the floor.
+      { else }
+        There used to be a pile of coins here, but they're all gone now.
+      { end }
+    storylets:
+      - name: go-to-blue-room
+        repeatable: true
+        label: Go to the Blue Room
+        icon: game-icons:delapouite/walk#blue
+        go: blue-room
+      - name: take-coin
+        when: coins on the floor
+        repeatable: true
+        label: Take a coin
+        description: They're just lying there.
+        icon: game-icons:delapouite/receive-money
+        assign:
+          - increment: coins
+          - decrement: coins on the floor
+        body: |
+          You take { when coins on the floor == 1 } the last { else } a { end } coin from the floor
+          and { when coins } add it to { when coins > 1 } those { else } the one { end }{ else } put it { end } in your pocket.
+      - when: coins
+        name: leave-coin
+        repeatable: true
+        label: Leave a coin
+        description: It's the right thing to do.
+        icon: game-icons:delapouite/pay-money
+        assign:
+          - decrement: coins
+          - increment: coins on the floor
+        body: |
+          You take { when coins == 1 } the last { else } a { end } coin from your pocket
+          and return it to where you found it.

@@ -1,0 +1,377 @@
+{
+    "$defs": {
+        "TextExpression": {
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "p"
+                        ],
+                        "properties": {
+                            "p": {
+                                "$ref": "#/$defs/TextExpression"
+                            }
+                        }
+                    },
+                    {
+                        "type": "object",
+                        "required": [
+                            "b"
+                        ],
+                        "properties": {
+                            "b": {
+                                "$ref": "#/$defs/TextExpression"
+                            }
+                        }
+                    },
+                    {
+                        "type": "object",
+                        "required": [
+                            "i"
+                        ],
+                        "properties": {
+                            "i": {
+                                "$ref": "#/$defs/TextExpression"
+                            }
+                        }
+                    },
+                    {
+                        "type": "object",
+                        "required": [
+                            "cnd", "then"
+                        ],
+                        "properties": {
+                            "cnd": {
+                                "$ref": "#/$defs/BooleanExpression"
+                            },
+                            "then": {
+                                "$ref": "#/$defs/TextExpression"
+                            },
+                            "els": {
+                                "$ref": "#/$defs/TextExpression"
+                            }
+                        }
+                    },
+                    {
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "BooleanExpression": {
+            "oneOf": [
+                {
+                    "type": "boolean"
+                },
+                {
+                    "type": "object",
+                    "required": [ "and" ],
+                    "properties": {
+                        "and": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/BooleanExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "or" ],
+                    "properties": {
+                        "or": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/BooleanExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "loc" ],
+                    "properties": {
+                        "loc": {
+                            "$ref": "#/$defs/LocationId"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "not" ],
+                    "properties": {
+                        "not": {
+                            "$ref": "#/$defs/BooleanExpression"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "gt" ],
+                    "properties": {
+                        "gt": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "gte" ],
+                    "properties": {
+                        "gte": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "lt" ],
+                    "properties": {
+                        "lt": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "lte" ],
+                    "properties": {
+                        "lte": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "eq" ],
+                    "properties": {
+                        "eq": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "neq" ],
+                    "properties": {
+                        "neq": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "Choice": {
+            "type": "object",
+            "required": [ "id", "cap" ],
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/ChoiceId"
+                },
+                "cap": {
+                    "$ref": "#/$defs/TextExpression"
+                },
+                "then": {
+                    "$ref": "#/$defs/Script"
+                },
+                "cnd": {
+                    "$ref": "#/$defs/BooleanExpression"
+                },
+                "desc": {
+                    "$ref": "#/$defs/TextExpression"
+                }
+            }
+        },
+        "ChoiceId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+        },
+        "IntegerExpression": {
+            "oneOf": [
+                {
+                    "type": "number"
+                },
+                {
+                    "type": "object",
+                    "required": [ "sum" ],
+                    "properties": {
+                        "sum": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "prd" ],
+                    "properties": {
+                        "prd": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "div" ],
+                    "properties": {
+                        "div": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "max" ],
+                    "properties": {
+                        "max": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "min" ],
+                    "properties": {
+                        "min": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "val" ],
+                    "properties": {
+                        "val": {
+                            "$ref": "#/$defs/QualityId"
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "rand" ],
+                    "properties": {
+                        "rand": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "object",
+                    "required": [ "sub" ],
+                    "properties": {
+                        "sub": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/IntegerExpression"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "LocationId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+        },
+        "QualityId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+        }
+    },
+    "type": "object",
+    "required": [ "onStart", "loc", "qua" ],
+    "properties": {
+        "onStart": {
+            "$ref": "#/$defs/Script"
+        },
+        "loc": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [ "id", "ttl"  ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/$defs/LocationId"
+                    },
+                    "ttl": {
+                        "$ref": "#/$defs/TextExpression"
+                    },
+                    "desc": {
+                        "$ref": "#/$defs/TextExpression"
+                    },
+                    "do": {
+                        "$ref": "#/$defs/Script"
+                    },
+                    "chc": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/$defs/Choice"
+                        }
+                    },
+                    "adj": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/$defs/LocationId"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

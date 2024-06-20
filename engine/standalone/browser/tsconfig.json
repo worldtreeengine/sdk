@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "lib": ["ES2023", "DOM"],
+        "jsx": "react",
+        "esModuleInterop": true,
+        "noEmit": true
+    },
+    "include": ["src/**/*"]
+}
