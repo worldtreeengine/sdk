@@ -20,7 +20,7 @@ jobs:
         pnpm install
     - working-directory: engine/standalone
       run: |
-        pnpm build
+        pnpm run build
     - working-directory: cli
       run: |
         cargo test
@@ -51,7 +51,7 @@ jobs:
         pnpm install
     - working-directory: engine/standalone
       run: |
-        pnpm build
+        pnpm run build
     - working-directory: cli
       run: |
         cargo test
@@ -82,7 +82,7 @@ jobs:
         pnpm install
     - working-directory: engine/standalone
       run: |
-        pnpm build
+        pnpm run build
     - working-directory: cli
       run: |
         cargo test
@@ -113,7 +113,7 @@ jobs:
         pnpm install
     - working-directory: engine/standalone
       run: |
-        pnpm build
+        pnpm run build
     - working-directory: cli
       run: |
         cargo test
