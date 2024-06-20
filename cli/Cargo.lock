@@ -1791,7 +1791,7 @@ dependencies = [
 
 [[package]]
 name = "worldtree-compiler"
-version = "0.4.0"
+version = "0.1.0"
 dependencies = [
  "lazy_static",
  "libyaml-safer",

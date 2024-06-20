@@ -1,0 +1,118 @@
+name: Release
+run-name: Release ${{ github.ref_name }}
+on:
+  push:
+    tags:
+    - "v*.*.*"
+concurrency:
+  group: ${{ github.workflow }} ${{ github.ref }}
+
+jobs:
+  build-windows-x64:
+    runs-on: windows-2022
+    steps:
+    - working-directory: engine
+      run: |
+        pnpm install
+    - working-directory: engine/standalone
+      run: |
+        pnpm build
+    - working-directory: cli
+      run: |
+        cargo test
+    - working-directory: cli
+      run: |
+        cargo build --release
+        cargo about generate -o target\release\THIRD-PARTY about.hbs
+    - env:
+        Version: ${{ github.ref_name }}
+      run: |
+        7z a -tzip worldtree-sdk-${Version}-windows-x64.zip cli\target\release\worldtree.exe
+        7z a -tzip worldtree-sdk-${Version}-windows-x64.zip cli\target\release\THIRD-PARTY
+        7z a -tzip worldtree-sdk-${Version}-windows-x64.zip LICENSE
+    - uses: actions/upload-artifact
+      with:
+        name: windows-x64
+        path: worldtree-sdk-${{ github.ref_name }}-windows-x64.zip
+  
+  build-macos-x64:
+    runs-on: macos-13
+    steps:
+    - working-directory: engine
+      run: |
+        pnpm install
+    - working-directory: engine/standalone
+      run: |
+        pnpm build
+    - working-directory: cli
+      run: |
+        cargo test
+    - working-directory: cli
+      run: |
+        cargo build --release
+        cargo about generate -o target/release/THIRD-PARTY about.hbs
+    - env:
+        Version: ${{ github.ref_name }}
+      run: |
+        7z a -tzip worldtree-sdk-${Version}-macos-x64.zip cli/target/release/worldtree
+        7z a -tzip worldtree-sdk-${Version}-macos-x64.zip cli/target/release/THIRD-PARTY
+        7z a -tzip worldtree-sdk-${Version}-macos-x64.zip LICENSE
+    - uses: actions/upload-artifact
+      with:
+        name: windows-x64
+        path: worldtree-sdk-${{ github.ref_name }}-macos-x64.zip
+
+  build-macos-arm64:
+    runs-on: macos-14
+    steps:
+    - working-directory: engine
+      run: |
+        pnpm install
+    - working-directory: engine/standalone
+      run: |
+        pnpm build
+    - working-directory: cli
+      run: |
+        cargo test
+    - working-directory: cli
+      run: |
+        cargo build --release
+        cargo about generate -o target/release/THIRD-PARTY about.hbs
+    - env:
+        Version: ${{ github.ref_name }}
+      run: |
+        7z a -tzip worldtree-sdk-${Version}-macos-arm64.zip cli/target/release/worldtree
+        7z a -tzip worldtree-sdk-${Version}-macos-arm64.zip cli/target/release/THIRD-PARTY
+        7z a -tzip worldtree-sdk-${Version}-macos-arm64.zip LICENSE
+    - uses: actions/upload-artifact
+      with:
+        name: windows-x64
+        path: worldtree-sdk-${{ github.ref_name }}-macos-arm64.zip
+
+  build-linux-x64:
+    runs-on: ubuntu-22.04
+    steps:
+    - working-directory: engine
+      run: |
+        pnpm install
+    - working-directory: engine/standalone
+      run: |
+        pnpm build
+    - working-directory: cli
+      run: |
+        cargo test
+    - working-directory: cli
+      run: |
+        cargo build --release
+        cargo about generate -o target/release/THIRD-PARTY about.hbs
+    - env:
+        Version: ${{ github.ref_name }}
+      run: |
+        zip worldtree-sdk-${Version}-linux-x64.zip \
+          cli/target/release/worldtree \
+          cli/target/release/THIRD-PARTY \
+          LICENSE
+    - uses: actions/upload-artifact
+      with:
+        name: windows-x64
+        path: worldtree-sdk-${{ github.ref_name }}-linux-x64.zip
