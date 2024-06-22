@@ -9,125 +9,185 @@ concurrency:
 
 jobs:
   build-windows-x64:
+    name: Build Windows x64 Artifact
     runs-on: windows-2022
     env:
       Artifact: worldtree-sdk-${{ github.ref_name }}-windows-x64.zip
     steps:
-    - uses: actions/checkout@v4
-    - uses: pnpm/action-setup@v4
+    - name: Check out source code
+      uses: actions/checkout@v4
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
       with:
         package_json_file: engine/package.json
-    - working-directory: engine
+    - name: Install browser packaging dependencies
+      working-directory: engine
       run: |
         pnpm install
-    - working-directory: engine/standalone/browser
+    - name: Compile browser packaging
+      working-directory: engine/standalone/browser
       run: |
         pnpm run build
-    - working-directory: cli
+    - name: Compile CLI and generate third-party licenses
+      working-directory: cli
       run: |
         cargo build --release
         cargo install cargo-about
         cargo about generate -o target\release\THIRD-PARTY about.hbs
-    - working-directory: cli/target/release
+    - name: Add build targets to archive
+      working-directory: cli/target/release
       run: |
         7z a ..\..\..\${Env:Artifact} worldtree.exe
         7z a ..\..\..\${Env:Artifact} THIRD-PARTY
-    - run: |
+    - name: Add license to archive
+      run: |
         7z a ${Env:Artifact} LICENSE
-    - uses: actions/upload-artifact@v4
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
       with:
         name: windows-x64
         path: ${{ env.Artifact }}
   
   build-macos-x64:
+    name: Build macOS x64 Artifact
     runs-on: macos-13
     env:
       ARTIFACT: worldtree-sdk-${{ github.ref_name }}-macos-x64.zip
     steps:
-    - uses: actions/checkout@v4
-    - uses: pnpm/action-setup@v4
+    - name: Check out source code
+      uses: actions/checkout@v4
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
       with:
         package_json_file: engine/package.json
-    - working-directory: engine
+    - name: Install browser packaging dependencies
+      working-directory: engine
       run: |
         pnpm install
-    - working-directory: engine/standalone/browser
+    - name: Compile browser packaging
+      working-directory: engine/standalone/browser
       run: |
         pnpm run build
-    - working-directory: cli
+    - name: Compile CLI and generate third-party licenses
+      working-directory: cli
       run: |
         cargo build --release
         cargo install cargo-about
         cargo about generate -o target/release/THIRD-PARTY about.hbs
-    - working-directory: cli/target/release
+    - name: Add build targets to archive
+      working-directory: cli/target/release
       run: |
         7z a ../../../${ARTIFACT} worldtree
         7z a ../../../${ARTIFACT} THIRD-PARTY
-    - run: |
+    - name: Add license to archive
+      run: |
         7z a ${ARTIFACT} LICENSE
-    - uses: actions/upload-artifact@v4
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
       with:
         name: macos-x64
         path: ${{ env.ARTIFACT }}
 
   build-macos-arm64:
+    name: Build macOS ARM64 Artifact
     runs-on: macos-14
     env:
       ARTIFACT: worldtree-sdk-${{ github.ref_name }}-macos-arm64.zip
     steps:
-    - uses: actions/checkout@v4
-    - uses: pnpm/action-setup@v4
+    - name: Check out source code
+      uses: actions/checkout@v4
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
       with:
         package_json_file: engine/package.json
-    - working-directory: engine
+    - name: Install browser packaging dependencies
+      working-directory: engine
       run: |
         pnpm install
-    - working-directory: engine/standalone/browser
+    - name: Compile browser packaging
+      working-directory: engine/standalone/browser
       run: |
         pnpm run build
-    - working-directory: cli
+    - name: Compile CLI and generate third-party licenses
+      working-directory: cli
       run: |
         cargo build --release
         cargo install cargo-about
         cargo about generate -o target/release/THIRD-PARTY about.hbs
-    - working-directory: cli/target/release
+    - name: Add build targets to archive
+      working-directory: cli/target/release
       run: |
         7z a ../../../${ARTIFACT} worldtree
         7z a ../../../${ARTIFACT} THIRD-PARTY
-    - run: |
+    - name: Add license to archive
+      run: |
         7z a ${ARTIFACT} LICENSE
-    - uses: actions/upload-artifact@v4
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
       with:
         name: macos-arm64
         path: ${{ env.ARTIFACT }}
 
   build-linux-x64:
+    name: Build Linux x64 Artifact
     runs-on: ubuntu-22.04
     env:
       ARTIFACT: worldtree-sdk-${{ github.ref_name }}-linux-x64.zip
     steps:
-    - uses: actions/checkout@v4
-    - uses: pnpm/action-setup@v4
+    - name: Check out source code
+      uses: actions/checkout@v4
+    - name: Set up pnpm
+      uses: pnpm/action-setup@v4
       with:
         package_json_file: engine/package.json
-    - working-directory: engine
+    - name: Install browser packaging dependencies
+      working-directory: engine
       run: |
         pnpm install
-    - working-directory: engine/standalone/browser
+    - name: Compile browser packaging
+      working-directory: engine/standalone/browser
       run: |
         pnpm run build
-    - working-directory: cli
+    - name: Compile CLI and generate third-party licenses
+      working-directory: cli
       run: |
         cargo build --release
         cargo install cargo-about
         cargo about generate -o target/release/THIRD-PARTY about.hbs
-    - working-directory: cli/target/release
+    - name: Add build targets to archive
+      working-directory: cli/target/release
       run: |
         zip ../../../${ARTIFACT} worldtree
         zip ../../../${ARTIFACT} THIRD-PARTY
-    - run: |
+    - name: Add license to archive
+      run: |
         zip ${ARTIFACT} LICENSE
-    - uses: actions/upload-artifact@v4
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
       with:
         name: linux-x64
         path: ${{ env.ARTIFACT }}
+
+  publish-release:
+    name: Publish Release
+    runs-on: ubuntu-22.04
+    needs:
+      - build-windows-x64
+      - build-macos-x64
+      - build-macos-arm64
+      - build-linux-x64
+    steps:
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        merge-multiple: true
+    - name: Publish release
+      uses: softprops/action-gh-release@v2
+      with:
+        name: Worldtree SDK ${{ github.ref_name }}
+        prerelease: true
+        files: |
+          worldtree-sdk-${{ github.ref_name }}-*.zip
+        fail_on_unmatched_files: true
+        repository: ${{ github.repository }}
+        token: ${{ github.token }}
