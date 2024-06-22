@@ -7,9 +7,20 @@ accepted = [
 
 targets = [
     "x86_64-pc-windows-msvc",
+    "x86_64-apple-darwin",
+    "aarch64-apple-darwin",
+    "x86_64-unknown-linux-gnu",
 ]
 
 ignore-build-dependencies = true
 ignore-dev-dependencies = true
 
 private.ignore = true
+
+[libyaml-safer.clarify]
+license = "MIT"
+
+[[libyaml-safer.clarify.files]]
+path = "LICENSE-MIT"
+license = "MIT"
+checksum = "23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3"
